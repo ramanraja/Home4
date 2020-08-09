@@ -1,0 +1,18 @@
+{ 
+"ORG":"intof",
+"GRP":"G0",
+"APP":"home",
+"HUB":"RPI_HUB1",
+"SSID":"xxxxx",
+"PASS":"xxxxxx",
+"OTA_SER":"http://192.168.1.11:1000/ota",
+"ACTIVE_LOW":1,
+"PRIMARY_REL":1,
+"STAT_FREQ_MIN":5,
+"AUTO_OFF_MIN":1.5,
+"NIGHT_HRS":[18,0,6,15],
+"DAY_LIGHT": 160,
+"NIGHT_LIGHT":90,
+"LIGHT_CORRECTION":620
+}
+
