@@ -1,0 +1,38 @@
+https://docs.pylonsproject.org/projects/waitress/en/stable/runner.html
+https://www.docketrun.com/blog/waitress-alternative-flask-gunicorn/
+
+NOTE: On EC2, make sure you disable the Windows firewall. **
+
+> pip install waitress
+
+> waitress-serve  mymodule:myapp
+This runs the app on port 8080
+
+> waitress-serve --port=5000 mymodule:myapp
+
+---------------------------------------------------------
+nginx configuration:
+
+worker_processes  1;
+
+error_log  logs/error.log;
+
+events {
+    worker_connections  10;
+}
+
+http {
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        listen       80;
+        server_name  8.132.87.189;   # localhost;
+        
+        # proxy the Flask/Waitress listening on 127.0.0.1:8080
+        location / {
+            proxy_pass http://127.0.0.1:8080;
+        }
+    }
+}
+
