@@ -1,0 +1,22 @@
+ESP8266/ ESP32 Wifi Manager:
+The original WiFi Manager by tzapu is obsolete.
+
+Currently in active development:
+https://github.com/khoih-prog/ESP_WiFiManager
+To install Wifi manager from the Arduino IDE:
+Select Tools/ Manage libraries and search for ESP_WiFIManager by Khoi Hhoang
+(beware: there is another ESP32 Wifi manager. Choose the right one).
+
+Companion Android app to configure ESP Wifi Manager:
+https://play.google.com/store/apps/details?id=au.com.umranium.espconnect
+
+
+To setup Wifi credentials on 8266, Point your web browser to http://192.168.4.1 or http://wifi.urremote.com/
+
+A short password seems to have unpredictable results so use one that's around 8 characters or more in length.
+
+Useful links for battery power consumption, static IP etc:
+https://www.instructables.com/id/ESP8266-Pro-Tips/
+
+Wifi network and channel pre-selection using RTC memory:
+https://www.bakke.online/index.php/2017/06/24/esp8266-wifi-power-reduction-avoiding-network-scan/

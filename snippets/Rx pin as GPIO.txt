@@ -1,0 +1,20 @@
+// How to convert the RX pin to a general GPIO pin
+
+const int led = 3;   // GPIO3, i.e, D9
+ 
+void setup() {
+  Serial.begin(115200);
+  Serial.println("\n-------------- Rx tester starting... -------------");
+  // Convert GPIO 3 (RX) pin to a GPIO:
+  pinMode(3, FUNCTION_3);  
+  Serial.println("Rx converted to a GPIO.");  // Tx still works
+  pinMode(led, OUTPUT);
+}
+
+bool status = false;
+void loop() {
+  digitalWrite (led, status);
+  status = !status;
+  Serial.print ("@"); // Tx still works
+  delay(1000);
+}
