@@ -37,6 +37,9 @@ def on_publish(client, userdata, mid):
 def on_subscribe(client, userdata, mid, granted_qos):
     print("Subscribed to {}; mid={}; granted QOS={}".format (sub_topic,mid,granted_qos))
     
+def on_unsubscribe (client, userdata, mid):
+    print("Unsubscribing from {}; mid={}".format (sub_topic,mid))
+        
 def on_message(client, userdata, msg):
     ts = datetime.now() 
     print ('{}  {} => {}'.format (ts.strftime("%H:%M:%S"), msg.topic, msg.payload.decode())) 
@@ -58,6 +61,7 @@ client = mqtt.Client("rajas_simulator_1963", clean_session=True) # if you make c
 client.on_connect = on_connect
 client.on_publish = on_publish
 client.on_subscribe = on_subscribe
+client.on_unsubscribe = on_unsubscribe
 client.on_message = on_message
 
 client.connect(server, port, keepalive=60)    # blocking call
