@@ -54,7 +54,7 @@ if len(sys.argv) > 1:
 print ('sub topic: {}'.format(sub_topic))
          
 # note: if client ID is constant and clean_session=False, earlier subscriptions will still linger *     
-client = mqtt.Client("rajas_simulator_1963", clean_session=True) # if you make clean_session False, you will get weird messages!
+client = mqtt.Client("myclient", clean_session=True) # if you make clean_session False, you will get weird messages!
 
 # client.username_pw_set("User", "password")     
 
