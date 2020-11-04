@@ -1,0 +1,9 @@
+device mydevice
+timezone +5:30
+Timer1 {"Enable":1,"Time":"06:00","Window":2,"Days":"SMTWTFS","Repeat":1,"Output":1,"Action":0}
+Timer2 {"Enable":1,"Time":"17:45","Window":2,"Days":"SMTWTFS","Repeat":1,"Output":1,"Action":1}
+
+device mytasmota
+timezone
+latitude
+longitude 34.45679
