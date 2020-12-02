@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>MQTT Websockets</title>
+</head>
+<body> 
+    <font face="Arial">
+    <h3>MQTT Websocket Bridge<br/>
+    <p id="message">Message</p></h3>
+    <input type = "text"  id="text1"  name = "mssg"  maxlength="32"/>
+    <button type="button" onclick='send_msg()'>Send</button> <br/>
+    <p id="status">Status</p>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    
+    <script type="text/javascript">
+     var socket = io.connect('http://127.0.0.1:5000/');
+
+     socket.on('connect', function()
+     {
+        console.log('Connected to socket server.')
+     	socket.emit('client-event', 'Socket Client Connected.\n')
+     });
+
+     socket.on('message', function(msg)
+     {  
+        console.log ('<- ' +msg)
+        document.getElementById("status").innerHTML = JSON.stringify(msg)
+     });
+     
+     socket.on('server-event', function(msg)
+     {  
+        console.log('<= ' +msg)
+        document.getElementById("message").innerHTML = JSON.stringify(msg)
+     });
+     
+     function send_msg () {
+        console.log('-> ' + document.getElementById("text1").value)
+        socket.emit('client-event', document.getElementById("text1").value)
+     }
+ </script>
+</body>
+</html>

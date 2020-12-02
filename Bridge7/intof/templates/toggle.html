@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Tasmota Controller</title>
+    <style>
+    .button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      outline: 0;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 18px;
+    }
+.button1 {width: 120px; height: 120px;background-color:gray; color: black;} /* #F8F8F8 */
+</style>
+</head>
+<body> 
+    <font face="Arial">
+    <h3>Bed Room</h3>
+    <hr/>
+    <button id="B1" class="button button1" onclick="send_cmd(device1, 1, 'toggle')"> ON </button>  
+    <button id="B2" class="button button1" onclick="send_cmd(device1, 2, 'toggle')"> ON </button>  <br/>
+    <button id="B3" class="button button1" onclick="send_cmd(device1, 3, 'toggle')"> ON </button>  
+    <button id="B4" class="button button1" onclick="send_cmd(device1, 4, 'toggle')"> ON </button>  
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    
+    <script type="text/javascript">
+    
+     var device1 = 'labs1';           
+          
+     // all the 3 following server specifications work, but have their own limitations
+     // will work only if the server and html are running on the local machine:
+     // var server = 'http://127.0.0.1:5000/';
+     
+     // server address is not hard coded in the html; but it needs to be served only from the server:
+     var server = 'http://' +document.domain +':' +location.port;
+     
+     // can be opened in the browser as a local html file; but the server address is hard coded here:
+     //var server = 'http://192.168.0.100:5000/';
+     var socket = io.connect(server);
+    
+     socket.on('connect', function()
+     {
+        console.log('Connected to socket server: ' +server);
+     	//socket.emit('client-event', 'Socket Client Connected.');
+     });
+
+     socket.on('message', function(msg)
+     {  
+        console.log ('<- ' +JSON.stringify (msg));
+     });
+     
+     socket.on('ACK', function(msg)
+     {  
+        console.log('<-- ' +JSON.stringify (msg));
+     });
+     
+     socket.on('server-event', function(msg)
+     {  
+        console.log('<= ' +JSON.stringify (msg));
+        // parse the json and show only stat/device/POWERx messages
+        //console.log (msg.device_id);
+        //console.log (msg.relay);
+        //console.log (msg.status);                
+        //document.getElementById ("status").innerHTML = JSON.stringify (msg);
+        button = 'B'+msg.relay;
+        var bgcolor = 'gray';
+        var fgcolor = 'black';
+        var txt = 'ON';
+        if (msg.status=='ON') {
+            bgcolor =  '#4CAF50'; /* Green */
+            fgcolor = 'white';
+            txt = 'OFF';
+        }
+        document.getElementById (button).style.backgroundColor = bgcolor;
+        document.getElementById (button).style.color = fgcolor;
+        document.getElementById (button).innerHTML = txt;
+     });
+     
+     function send_cmd (deviceid, relay_num, cmd) {
+        console.log('-> ' +cmd +' ' +relay_num);
+         //document.getElementById ('B'+relay_num).style.backgroundColor = 'red';
+        var jcmd = {"device_id" : deviceid, "relay": relay_num, "action" : cmd}
+        socket.emit('client-event', JSON.stringify (jcmd));
+
+     }
+ </script>
+</body>
+</html>
