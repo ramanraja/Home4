@@ -1,7 +1,7 @@
 # MQTT-Web socket bridge
 # TODO: have a background thread to ping devices, look for new devices and build initial inventory
 # TODO: make the device_id as the key, and a json containing relsen_id and status as its value.
-# TODO: if the Hub app is not running while building the in_mem_devices, the client connection crashes and
+# Fixed: if the Hub app is not running while building the in_mem_devices, the client connection crashes and
 #   re-establishes in an infinite loop !
 
 ####from intof import app  -> does not work
