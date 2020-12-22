@@ -1061,6 +1061,6 @@ Payload: <br/>
   'room_name' : 'Master bed room', <br/> 
   'room_type' : 'Bed room',  <br/>
   'group_name' : 'Ground floor', <br/>
-  'schedule' : [[11.45,12.0],[13.0,14.30]]  <br/>
+  'schedule' : "{\"schedule\" : [[11.45,12.0],[13.0,14.30]]}"  <br/>
 } <br/>
-''' 
+'''
