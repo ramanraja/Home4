@@ -108,9 +108,9 @@ class Relsen (db.Model):
             'repeat': self.repeat
         }
         if self.schedule :
-            jrelsen.update(json.loads(self.schedule))
+            jrelsen.update(json.loads(self.schedule))  # merge the two json objects
         else:
-            jrelsen['schedule'] = []        
+            jrelsen['schedule'] = []        # create a 'schedule' node and add an empty array
         return (jrelsen)
      
     def __repr__(self):
@@ -137,8 +137,6 @@ class Status (db.Model):  # TODO: store realtime data and events in database
 #----------------------------------------------------------------------------------------------------
 # helper methods    
 #----------------------------------------------------------------------------------------------------
-# TODO: take JSON input 
-# TODO: only device_id is mandatory; fallback_id can be updated later also
 
 def insert_device (device_id, fallback_id=None, mac=None, ip=None, 
                 hardware_type="Generic", num_relays=1, num_sensors=0, 
@@ -226,7 +224,7 @@ def insert_relsen (device_id, relsen_id,
         room_name = room_name,
         room_type = room_type,
         group_name = group_name,
-        schedule = schedule,  
+        schedule = schedule,   # LHS is the DB column name; RHS is a stringified json object (which has 'schedule' as the key)
         repeat = repeat) 
     db.session.add (rs) 
     db.session.commit()    
@@ -255,12 +253,15 @@ def update_relsen (jrelsen):
     if (room_name):  rs.room_name = room_name
     room_type = jrelsen.get('room_type') or None 
     if (room_type):  rs.room_type = room_type
+    
     group_name = jrelsen.get('group_name') or None    
     if (group_name):  rs.group_name = group_name
+    
     schedule = jrelsen.get('schedule') or None 
-    if (schedule):  rs.schedule = json.dumps(schedule)
-    repeat = jrelsen.get('repeat') or None 
-    if (repeat):  rs.repeat = repeat
+    if (schedule):  rs.schedule = schedule   # it must be a string (stringified json with 'schdule' as the key)
+    ###repe = jrelsen.get('repeat') or None # TODO: understand this!
+    if 'repeat' in jrelsen:
+         rs.repeat = jrelsen.get('repeat') 
     db.session.commit()    
     return ({'result' : 'successfully updated relsen'})
         
@@ -990,15 +991,34 @@ def add_test_data():
     return ({'result': '4 Test devices added (if not existing)'})   
     
 @app.route('/simul/update/device') 
-def simul_update():
+def simul_update_device():
     dev = Device.query.filter_by (device_id='portico').first()
     if (not dev):
         return {'error' : 'invalid device_id'}
     en = not(dev.enabled)  # toggle the current status
     jupdate = {'device_id' : 'portico', 'enabled' : en}
     update_device (jupdate)
-    return {'result' : 'device updated'}
+    return {'result' : 'device portico updated'}
     
+@app.route('/simul/update/relsen') 
+def simul_update_relsen():
+    rs = Relsen.query.filter_by (device_id='labs1', relsen_id='POWER1').first()
+    if (not rs):
+        return {'error' : 'invalid device_id or relsen_id'}
+    jupdate = {
+        'device_id':'labs1', 'relsen_id':'POWER1',
+        'relsen_name':'Table fan', 'relsen_type': 'Fan',
+        'room_name':'Grandpa\'s room', 'room_type': 'Dining room', 'group_name':'Basement',
+        'schedule': json.dumps({"schedule":[[10.0,11.30]]}), 
+        'repeat':False
+    }
+    update_relsen (jupdate)
+    return {'result' : 'relsen labs1.POWER1 updated'}    
+    
+    
+    
+
+
 #-----------------------------------------------------------------------------------------
 
 dprint ('\nThis is Database Developer') 
