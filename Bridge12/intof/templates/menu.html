@@ -1,0 +1,36 @@
+<html>
+   <body>
+   <font face="Arial">
+      <b>Bridge App Tests</b><br/><br/>
+      <table style="font-size:12px">
+      
+        <tr><td style="color:gray"><b>Check the App Server</b></td></tr> 
+        <tr><td><a href="/random">/random</a></td><td>Get a random number</td></tr>
+        
+        <tr><td style="color:gray">House Keeping<b></b></td></tr> 
+        <tr><td><a href="/menu">/menu</a></td><td>This menu (unit tests)</td></tr>  
+        <tr><td><a href="/index">/index</a></td><td>Device Controller UI</td></tr>  
+        <tr><td><a href="/bridge">/bridge</a></td><td>Raw socket-MQTT bridge</td></tr>          
+        <tr><td><a href="/ping/mqtt">/ping/mqtt</a></td><td>Ping MQTT</td></tr>  
+        <tr><td><a href="/ping/socket">/ping/socket</a></td><td>Ping socket</td></tr>  
+        
+        <tr><td style="color:gray"><b>Take stock</b></td></tr> 
+        <tr><td><a href="/get/device/ids">/get/device/ids</a></td><td>List all device IDs in your database</td></tr>  
+        <tr><td><a href="/get/mem/devices">/get/mem/devices</a></td><td>Show config of in-memory devices</td></tr>  
+        <tr><td><a href="/get/mem/relsens">/get/mem/relsens</a></td><td>Show in-memory relsen tree</td></tr>  
+        <tr><td><a href="/build/device/inventory">/build/device/inventory</a></td><td>Build the device inventory again</td></tr>  
+
+        <tr><td style="color:gray"><b>Live status</b></td></tr> 
+        <tr><td><a href="/get/online/status">/get/online/status</a></td><td>Get online status of registered devices</td></tr>  
+        <tr><td><a href="/get/status">/get/status</a></td><td>Get full statuses of registered devices</td></tr>          
+        <tr><td><a href="/get/online/devices">/get/online/devices</a></td><td>Show which devices are online</td></tr>  
+        <tr><td><a href="/get/offline/devices">/get/offline/devices</a></td><td>Show which devices are offline</td></tr>  
+        
+        <tr><td style="color:gray"><b>Discovery</b></td></tr> 
+        <tr><td><a href="/get/new/devices">/get/new/devices</a></td><td>List newly found device ids, if any</td></tr>  
+        <tr><td><a href="/discover/devices">/discover/devices</a></td><td>List newly found devices & relsens, if any</td></tr>          
+        <tr><td><a href="/send/tracer">/send/tracer</a></td><td>Send a tracer broadcast to discover devices</td></tr>  
+        </table>        
+        <hr/>
+   </body>
+</html>
