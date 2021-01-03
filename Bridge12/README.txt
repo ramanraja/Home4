@@ -3,7 +3,7 @@ MQTT to socketIO two way bridge.
 Using a factory pattern, with lazy initialization of socketio and mqtt objects (without a global app object)
 Keeps trying to connect to MQTT broker initially till it succeeds.  
 
-NEW IN THIS VERSION: streamlined the API; created API document-cum-unit test cases
+NEW IN THIS VERSION: initialization moved to proper starup code block; created API document-cum-unit test cases
 
 Test:
 > mosquitto_sub -t stat/#  -v
