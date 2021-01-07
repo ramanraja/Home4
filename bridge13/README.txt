@@ -3,7 +3,7 @@ MQTT to socketIO two way bridge.
 Using a factory pattern, with lazy initialization of socketio and mqtt objects (without a global app object)
 Keeps trying to connect to MQTT broker initially till it succeeds.  
 
-NEW IN THIS VERSION: Device Simulator added
+NEW IN THIS VERSION: Device Simulator added; retry once before declaring a device offline.
 
 Test:
 > mosquitto_sub -t stat/#  -v
